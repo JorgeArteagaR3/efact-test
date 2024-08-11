@@ -11,22 +11,22 @@ export class TasksService {
       {
         id: 1,
         completed: false,
-        title: 'task',
+        title: 'task 1',
       },
       {
         id: 2,
         completed: true,
-        title: 'task',
+        title: 'task 2',
       },
       {
         id: 3,
         completed: false,
-        title: 'task',
+        title: 'task 3',
       },
       {
         id: 4,
         completed: false,
-        title: 'task',
+        title: 'task 4',
       },
     ];
   }

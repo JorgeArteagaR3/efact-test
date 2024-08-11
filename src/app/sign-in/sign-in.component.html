@@ -1,0 +1,30 @@
+<div class="flex items-center justify-center pt-10">
+  <form
+    [formGroup]="signInForm"
+    class="flex flex-col max-h-auto border p-10 items-center justify-center gap-4"
+    (ngSubmit)="onSubmit()"
+  >
+    <p>Sign In</p>
+    <input
+      type="text"
+      placeholder="User"
+      formControlName="userName"
+      class="border p-2"
+    />
+    <em class="self-start text-red-500">Email is required</em>
+    <em class="self-start text-red-500">Must be a valid email format</em>
+    <input
+      type="password"
+      placeholder="Password"
+      formControlName="password"
+      class="border p-2"
+    />
+    <em class="self-start text-red-500">Password is required</em>
+    <button
+      type="submit"
+      class="bg-fuchsia-500 text-white px-4 py-2 rounded-lg disabled:bg-gray-600 disabled:text-gray-400"
+    >
+      Ingresar
+    </button>
+  </form>
+</div>

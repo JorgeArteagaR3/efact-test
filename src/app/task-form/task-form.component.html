@@ -1,0 +1,35 @@
+<form
+  [formGroup]="taskForm"
+  (ngSubmit)="onSubmit()"
+  class="flex flex-col px-4 mb-4"
+>
+  <div class="flex gap-2 justify-between items-center mb-2">
+    <label for="title">Task:</label>
+    <input
+      type="text"
+      id="title"
+      class="border rounded-md px-2 py-1"
+      placeholder="Title"
+      formControlName="title"
+    />
+    <button
+      [disabled]="taskForm.invalid"
+      class="bg-green-400 text-white rounded-lg font-bold p-2 flex justify-center items-center disabled:bg-gray-400 disabled:text-gray-800"
+    >
+      Add +
+    </button>
+  </div>
+
+  <div
+    *ngIf="title?.invalid && (title?.dirty || title?.touched)"
+    class="text-red-600 font-bold"
+  >
+    <div *ngIf="title?.errors?.['required']">Title is required.</div>
+    <div *ngIf="title?.errors?.['pattern']">
+      Only alphanumeric characters are allowed
+    </div>
+    <div *ngIf="title?.errors?.['minlength']">
+      Tienes que ingresar mínimo 4 caracteres
+    </div>
+  </div>
+</form>

@@ -1,1 +1,14 @@
-<p>task-item works!</p>
+<li
+  class="grid grid-cols-3 place-items-center border p-2 rounded-lg items-center hover:bg-slate-50/40"
+>
+  <input type="checkbox" [(ngModel)]="task.completed" />
+  <p>{{ task.title }}</p>
+  <button
+    (click)="deleteButtonClicked()"
+    [disabled]="task.completed"
+    [ngClass]="{ 'opacity-0 invisible': task.completed }"
+    class="duration-200 bg-red-400 size-8 rounded-full font-bold"
+  >
+    X
+  </button>
+</li>

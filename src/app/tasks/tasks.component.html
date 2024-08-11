@@ -1,41 +1,14 @@
 <main class="py-2">
   <section class="max-w-[50rem] mx-auto">
     <h1 class="font-bold text-3xl text-center mb-8">Tasks To Do!</h1>
-    <div class="flex gap-2 mb-4 justify-between px-2 items-center">
-      <label for="newTask">Task:</label>
-      <input
-        type="text"
-        id="newTask"
-        class="border rounded-md px-2 py-1"
-        placeholder="Title"
-        [formControl]="newTask"
-      />
-      <button
-        class="bg-green-400 text-white rounded-lg font-bold p-2 flex justify-center items-center"
-        (click)="addTask()"
-      >
-        Add +
-      </button>
-    </div>
+    <app-task-form (addTask)="addTask($event)"></app-task-form>
     @if (!tasks.length) {
     <p class="text-center text-red-600 text-3xl font-bold">No tasks found</p>
     }
     <div>
       <ul class="flex flex-col px-4 gap-4">
         @for (task of tasks; track $index) {
-        <li
-          class="flex justify-between border p-2 rounded-lg items-center hover:bg-slate-50/40"
-        >
-          <input type="checkbox" [(ngModel)]="task.completed" />
-          <p>{{ task.title }} {{ $index + 1 }}</p>
-          <button
-            (click)="deleteTask(task.id)"
-            [disabled]="task.completed"
-            class="duration-200 bg-red-400 size-8 rounded-full font-bold disabled:bg-gray-300 text-gray-700"
-          >
-            X
-          </button>
-        </li>
+        <app-task-item [task]="task" (delete)="deleteTask(task.id)" />
         }
       </ul>
     </div>

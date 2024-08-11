@@ -1,18 +1,25 @@
 import { Component } from '@angular/core';
 import { ITask } from './task.model';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TasksService } from './task.service';
+import { CommonModule } from '@angular/common';
+import { TaskItemComponent } from '../task-item/task-item.component';
+import { TaskFormComponent } from '../task-form/task-form.component';
 
 @Component({
   selector: 'app-tasks',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule],
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    CommonModule,
+    TaskItemComponent,
+    TaskFormComponent,
+  ],
   templateUrl: './tasks.component.html',
-  styleUrl: './tasks.component.css',
 })
 export class TasksComponent {
   tasks: ITask[] = [];
-  newTask = new FormControl('');
 
   constructor(private taskSvc: TasksService) {}
 
@@ -20,13 +27,8 @@ export class TasksComponent {
     this.tasks = this.taskSvc.getTasks();
   }
 
-  addTask() {
-    if (!this.newTask.value) return;
-    this.tasks.push({
-      completed: false,
-      title: this.newTask.value || '',
-      id: Date.now(),
-    });
+  addTask(task: ITask) {
+    this.tasks.push(task);
   }
 
   deleteTask(id: number) {
