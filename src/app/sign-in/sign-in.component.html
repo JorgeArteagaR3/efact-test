@@ -11,15 +11,33 @@
       formControlName="userName"
       class="border p-2"
     />
-    <em class="self-start text-red-500">Email is required</em>
-    <em class="self-start text-red-500">Must be a valid email format</em>
+    <em
+      *ngIf="userName?.touched && userName?.errors?.['required']"
+      class="self-start text-red-500"
+      >Username is required</em
+    >
+    <em
+      *ngIf="userName?.touched && userName?.errors?.['pattern']"
+      class="self-start text-red-500"
+      >Usuario Invalido</em
+    >
+
     <input
       type="password"
       placeholder="Password"
       formControlName="password"
       class="border p-2"
     />
-    <em class="self-start text-red-500">Password is required</em>
+    <em
+      *ngIf="password?.touched && password?.errors?.['required']"
+      class="self-start text-red-500"
+      >Password is required</em
+    >
+    <em
+      *ngIf="password?.touched && password?.errors?.['pattern']"
+      class="self-start text-red-500"
+      >Contraseña Invalida</em
+    >
     <button
       type="submit"
       class="bg-fuchsia-500 text-white px-4 py-2 rounded-lg disabled:bg-gray-600 disabled:text-gray-400"
