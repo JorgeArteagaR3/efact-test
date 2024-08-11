@@ -1,6 +1,19 @@
-<header class="border-b p-2">
-  <nav class="flex items-center gap-2 justify-end">
-    <p>Welcome User</p>
-    <a routerLink="/sign-in" class="bg-red-400 p-2 rounded-lg">Sign Out</a>
+<header class="border-b p-2 grid place-items-center grid-cols-3 w-full">
+  <h2 class="text-center text-fuchsia-500 md:text-2xl font-bold col-start-2">
+    My Tasks App
+  </h2>
+  <nav
+    *ngIf="auth?.isAuthenticated"
+    class="flex items-center gap-1 self-end text-xs md:text-sm"
+  >
+    <p>
+      Welcome: <span class="text-fuchsia-500 font-bold">{{ auth?.user }}</span>
+    </p>
+    <button
+      (click)="logout()"
+      class="bg-red-400 p-1 rounded-lg font-bold hover:opacity-80 duration-100"
+    >
+      Sign Out
+    </button>
   </nav>
 </header>

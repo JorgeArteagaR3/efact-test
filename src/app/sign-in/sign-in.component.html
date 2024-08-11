@@ -44,5 +44,10 @@
     >
       Ingresar
     </button>
+    <em
+      *ngIf="signInForm.invalid && formSubmitted"
+      class="self-start text-red-500"
+      >Crendenciales invalidas</em
+    >
   </form>
 </div>

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,6 +8,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthState } from '../auth.state';
+import { select, Store } from '@ngrx/store';
+import { login } from '../../auth.actions';
+import Cookies from 'js-cookie';
 
 @Component({
   selector: 'app-sign-in',
@@ -17,6 +22,9 @@ import { Router } from '@angular/router';
   styleUrl: './sign-in.component.css',
 })
 export class SignInComponent {
+  private store = inject(Store);
+  formSubmitted = false;
+
   signInForm = new FormGroup({
     userName: new FormControl('', [
       Validators.required,
@@ -27,7 +35,12 @@ export class SignInComponent {
       Validators.pattern('test01'),
     ]),
   });
-  constructor(private router: Router) {}
+
+  authState$?: Observable<AuthState>;
+
+  constructor(private router: Router) {
+    this.authState$ = this.store.pipe(select('auth'));
+  }
 
   get userName() {
     return this.signInForm.get('userName');
@@ -37,11 +50,20 @@ export class SignInComponent {
     return this.signInForm.get('password');
   }
 
-  onSubmit() {
-    console.log('gaa');
-    console.log('username', this.userName?.value);
-    if (!this.signInForm.valid) return;
+  login() {
+    const authValues: AuthState = {
+      user: this.userName?.value || '',
+      isAuthenticated: true,
+    };
 
+    this.store.dispatch(login(authValues));
     this.router.navigate(['/tasks']);
+    Cookies.set('auth', JSON.stringify(authValues));
+  }
+
+  onSubmit() {
+    this.formSubmitted = true;
+    if (!this.signInForm.valid) return;
+    this.login();
   }
 }
